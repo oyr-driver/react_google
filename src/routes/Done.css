@@ -1,0 +1,5 @@
+/*index.html에 모든 css파일 적용되므로 다른 파일에 동일하게 적혀있다면 지워도 됨(이름 바꿔서 중복 방지하기)*/
+.title{font-family: 'Do Hyeon', sans-serif; color:#495057;}
+#insert{color:#e9967a;}
+#d_googleMap{width:90%; height:650px; margin:20px auto;}
+.d_group{font-size:60px; text-align:center; margin-top:200px; color:#6c757d;}

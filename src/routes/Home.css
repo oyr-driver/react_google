@@ -1,0 +1,50 @@
+/*index.html에 모든 css파일 적용되므로 다른 파일에 동일하게 적혀있다면 지워도 됨(이름 바꿔서 중복 방지하기)*/
+*{
+    font-family: 'Gowun Batang', serif;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+.loading{/*gooddrive*/
+    font-family: 'Do Hyeon', sans-serif;
+    font-size:150px;
+    margin-top:600px;
+    text-align:center;
+}
+.check{
+    font-size:60px;
+    margin-left:60px;
+}
+.pin{
+    width:60px;
+    height:60px;
+}
+.adjust{
+    color:red;
+    font-size:50px;
+    margin-left:85px;
+}
+#googleMap{
+    width:90%;
+    height:800px;
+    margin:auto;
+}
+.box{
+    margin-top:200px;
+}
+.detailAddr{/*infowindow(주소정보들)*/
+    font-size:40px;
+}
+.addr{/*법정동 주소정보*/
+    font-weight: bold;
+    font-size: 45px;
+}
+.roadAddr{/*도로명주소*/
+    margin:10px 0px;
+}
+.checkbox{/*작성할게요, 네 맞습니다 버튼*/
+    margin:10px 50px;
+    font-size:50px;
+    border-radius: 25px;
+}
+.boxgroup{/*버튼 모음*/
+    text-align:center;
+}
