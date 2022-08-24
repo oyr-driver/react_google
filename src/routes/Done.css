@@ -2,4 +2,8 @@
 .title{font-family: 'Do Hyeon', sans-serif; color:#495057;}
 #insert{color:#e9967a;}
 #d_googleMap{width:90%; height:650px; margin:20px auto;}
-.d_group{font-size:60px; text-align:center; margin-top:200px; color:#6c757d;}
+.d_group, .picture{font-size:60px; text-align:center; margin-top:200px; color:#6c757d;}
+#takePicture{display:none;}
+.send{margin-left:60px;}
+.camera{color:red; margin-top:60px; font-size:55px;}
+.show{width:80%; height:80%;}

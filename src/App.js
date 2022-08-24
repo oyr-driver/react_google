@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";//router 쓰기위함
 import Search from "./routes/Search";
 import Done from "./routes/Done";
+import Thanks from "./routes/Thanks";
 import Home from "./routes/Home";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/search" element={<Search />}></Route>
         <Route path="/done" element={<Done />}></Route>
+        <Route path="/thanks" element={<Thanks />}></Route>
         <Route path="/" element={<Home />}></Route>
       </Routes>
     </BrowserRouter>
