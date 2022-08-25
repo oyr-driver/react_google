@@ -1,5 +1,6 @@
 import "./Done.css";
 import {useState, useEffect, useRef} from "react";
+import axios from 'axios';//axios 사용하기 위함
 
 function Done(){
     const google=window.google;//react에서 google 사용하기 위함
@@ -99,9 +100,10 @@ function Done(){
         reader.onload=function(event){
             dataUrl=event.target.result;
             if (dataUrl){
-                console.log(text);
+                console.log(text.value);
+                if (text.value==="") console.log('text is null');
                 console.log(dataUrl);
-
+                
                 var form=document.createElement("form");
                 form.setAttribute("method", "Post");  //Post 방식
                 form.setAttribute("action", "/done"); //요청 보낼 주소 (수정 필요)
@@ -116,6 +118,33 @@ function Done(){
 
                 document.body.appendChild(form);
                 form.submit();
+
+                thanks();
+            }
+        }
+    }
+
+    function blobToDataUrl_axios(){//혹시 form태그 동작하지 않으면 axios로 해보세용..!!!
+        var text=document.getElementById('text');
+        var reader=new FileReader();
+        if (latestFile.current) reader.readAsDataURL(latestFile.current);
+        reader.onload=function(event){
+            dataUrl=event.target.result;
+            if (dataUrl){
+                console.log(text.value);
+                console.log(dataUrl);
+
+                try{
+                    axios.post(`~~해당 주소~~`, {//정보 전달할 페이지
+                        text:text.value,//null값 처리에 에러가 발생하진 않을지 모르겠어용,,
+                        dataUrl:dataUrl
+                    });
+                }
+                catch(err) {
+                    alert(`오류가 발생했습니다.\n${err.message}`);
+                    return;
+                }
+                
 
                 thanks();
             }
