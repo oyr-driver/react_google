@@ -98,8 +98,7 @@ function Home(){
         <div className="loading" style={style1}>GOODDRIVE</div>
         <div className="box" style={style2}>
             <div className="check">
-                <img src="https://e7.pngegg.com/pngimages/199/694/png-clipart-computer-icons-map-location-sign-cdr-black-thumbnail.png" 
-                className="pin" alt="pin mark" />
+                <img src="picture/location.png" className="pin" alt="pin mark" /> {/*public 내에 picture 있으므로 picture만 작성*/}
                 현재 위치가 맞습니까?
             </div>
             <div className="adjust">

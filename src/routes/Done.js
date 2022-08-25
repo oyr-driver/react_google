@@ -28,7 +28,7 @@ function Done(){
         if(document.getElementById("insert") && google.maps) {//return이 로딩되었다면(html파일이 만들어져서 insert id가 생겼다면)
             
             var post=document.getElementById("insert");
-            post.append('"'+loc+'"');
+            if(!post.innerHTML) post.append('"'+loc+'"');//안에 내용이 없었다면
 
             var mapOptions = { 
                 center:new google.maps.LatLng(lat, lon),
@@ -47,8 +47,6 @@ function Done(){
             styleSet2({display:'block'});
         }
     },[]);//뒤에 빈 배열 넣어 처음 한번만 실행
-
-//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
     var take=document.getElementById('takePicture');
     var show=document.querySelector('.show');
@@ -95,13 +93,29 @@ function Done(){
 
     var dataUrl;
     function blobToDataUrl(){
+        var text=document.getElementById('text');
         var reader=new FileReader();
-        if (latestFile.current) reader.readAsDataURL(latestFile.current);/////////////file
+        if (latestFile.current) reader.readAsDataURL(latestFile.current);
         reader.onload=function(event){
             dataUrl=event.target.result;
             if (dataUrl){
+                console.log(text);
                 console.log(dataUrl);
-                //해당 위치로 전송하기
+
+                var form=document.createElement("form");
+                form.setAttribute("method", "Post");  //Post 방식
+                form.setAttribute("action", "/done"); //요청 보낼 주소 (수정 필요)
+                form.appendChild(text);
+
+                //dataUrl을 input형식으로 변환 후 form에 삽입
+                var sendUrl= document.createElement("input");
+                sendUrl.setAttribute("type", "hidden");
+                sendUrl.setAttribute("name", "dataUrl");
+                sendUrl.setAttribute("value", dataUrl);
+                form.appendChild(sendUrl);
+
+                document.body.appendChild(form);
+                form.submit();
 
                 thanks();
             }
@@ -121,8 +135,7 @@ function Done(){
         <div className="loading" style={style1}>Wait a minutes...</div>
         <div className="d_group" style={style2}>
             <div className="here">
-                <img src="https://e7.pngegg.com/pngimages/199/694/png-clipart-computer-icons-map-location-sign-cdr-black-thumbnail.png" 
-                className="s_pin" alt="pin mark" />
+                <img src="picture/location.png" className="pin" alt="pin mark" />
                 현재 고객님의 위치는
                 <div id="insert"></div>
                 입니다.
@@ -132,18 +145,20 @@ function Done(){
 
             <div className="camera">현재 상황을 사진으로 알리고 싶다면?</div>
             <input type="file" id="takePicture" name="picture" accept="image/*" />
-            <label htmlFor="takePicture" className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox">현 상황 알리기</label>
+            <label htmlFor="takePicture" className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox alert">현 상황 알리기</label>
         </div>
 
         <div className="picture" style={style3}>
-            <div className="send">
-                <img src="https://e7.pngegg.com/pngimages/199/694/png-clipart-computer-icons-map-location-sign-cdr-black-thumbnail.png" 
-                className="pin" alt="pin" />
-                현재 이미지를 전송할까요?
-            </div>
-            <br />
+            <img src="picture/camera.png" className="cam" alt="pin" />
+            &nbsp;현재 이미지를 전송할까요?
+            <br /><br />
             <div className="boxgroup">
                 <img className="show" alt="error" />
+                <br /> <br />
+                <div className="write">
+                    불편내용 적어주세요  <span className="choose">*(선택)</span>
+                </div>
+                <input type="text" id="text" name="text" />
                 <br /><br />
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox" onClick={blobToDataUrl}>
                     전송</button>

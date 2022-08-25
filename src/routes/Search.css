@@ -1,7 +1,6 @@
 /*index.html에 모든 css파일 적용되므로 다른 파일에 동일하게 적혀있다면 지워도 됨(이름 바꿔서 중복 방지하기)*/
 .group{overflow:hidden;}
 .head{margin-top:200px; font-size:60px; margin-left:40px;}
-.s_pin{width:50px; height:50px;}
 .enter{font-size:50px; position:relative;}
 #addr{font-size:40px;}
 #s_googleMap{width:90%; height:800px; margin:auto;}

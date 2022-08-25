@@ -131,8 +131,7 @@ function Search(){
         <div className="loading" style={style1}>Wait a minutes...</div>
         <div className="group" style={style2}>
             <div className="head">
-                <img src="https://e7.pngegg.com/pngimages/199/694/png-clipart-computer-icons-map-location-sign-cdr-black-thumbnail.png" 
-                className="s_pin" alt="pin mark" />
+                <img src="picture/location.png" className="pin" alt="pin mark" />
                 <span className="change1" style={change1}>위치를 작성해주세요</span>
                 <span className="change2" style={change2}>작성하신 위치가 맞습니까?</span>
             </div>
