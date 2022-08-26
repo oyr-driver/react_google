@@ -1,12 +1,12 @@
 /*index.html에 모든 css파일 적용되므로 다른 파일에 동일하게 적혀있다면 지워도 됨(이름 바꿔서 중복 방지하기)*/
-#insert{color:#ae7ff3;}
+.d_group, .picture{font-size:60px; text-align:center; margin-top:200px;}/*전체적인 페이지*/
+#insert{color:#ae7ff3;}/*주소*/
 #d_googleMap{width:90%; height:650px; margin:20px auto;}
-.cam{width:80px; height:70px;}
-.alert{border: red 2px solid;}
-.d_group, .picture{font-size:60px; text-align:center; margin-top:200px;}
-#takePicture{display:none;}
-.camera{color:red; margin-top:60px; font-size:55px;}
-.write{font-size:50px; color:#707070;}
-.choose{font-size:40px; color:#4268F6;}
-.show{width:80%; height:80%;}
-#text{border:solid 1px #495057; border-radius: 15px; width:700px; height:100px;}
+.camera{color:red; margin-top:60px; font-size:55px;}/*현재상황을 사진으로 알리고싶다면*/
+.alert{border: red 2px solid;}/*현상황 알리기 버튼*/
+#takePicture{display:none;}/*input file*/
+.cam{width:80px; height:70px;}/*카메라사진*/
+.show{width:80%; height:80%;}/*찍은 사진*/
+.write{font-size:50px; color:#707070;}/*불편내용 적어주세요*/
+.choose{font-size:40px; color:#4268F6;}/*선택*/
+#text{border:solid 1px #495057; border-radius: 15px; width:700px; height:100px;}/*불편내용 적는 칸*/

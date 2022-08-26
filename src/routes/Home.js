@@ -1,9 +1,10 @@
 import "./Home.css";
 import {useState, useEffect, useRef} from "react";
-import { useParams } from "react-router";
+import axios from 'axios';//axios 사용하기 위함
+import {useParams} from "react-router";//url 변수 저장 위함
 
 function Home(){
-    const { id } = useParams();
+    const {id} = useParams();//id라는 url 변수를 저장
     const google=window.google;//react에서 google 사용하기 위함
 
     var map, marker;
@@ -41,19 +42,19 @@ function Home(){
 
                 marker = new google.maps.Marker({position: {lat: setLat, lng: setLon}, map: map});
 
-                latlon2addr(setLat, setLon);
+                latlon2addr(setLat, setLon);//위도경도를 주소로 변환
 
                 //클릭하면 마커 변화
                 google.maps.event.addListener(map, 'click', function(event){
                     marker.setMap(null);//마커 하나만 뜨도록 기존것 없애주기
                     marker=new google.maps.Marker({position: {lat: event.latLng.lat(), lng: event.latLng.lng()}, map: map});
-                    latlon2addr(event.latLng.lat(),event.latLng.lng(),marker);
+                    latlon2addr(event.latLng.lat(),event.latLng.lng(),marker);//위도경도를 주소로 변환
                     map.setCenter(marker.getPosition());//마커가 가운데 위치하도록
                     marker.setMap(map);
                 })
             });
         }
-    },[]);
+    },[]);//빈 배열 넣어 처음 한번만 실행
 
     //위도 경도를 주소로 변환
     function latlon2addr(lat, lon){
@@ -84,6 +85,25 @@ function Home(){
         window.location.href=`/search/${id}`;
     }
 
+    //서버로 위도, 경도, 주소 전달
+    function sendAddr_axios(){//form태그는 다른 서버로 전송x -> axios는 가능
+        axios.post(`http://localhost:5000/call/message/${id}/imgsubmit`, {//정보 전달할 페이지  !!!!!!!!!!!!!!!!!!!!!!!!!주소수정???
+            lat:latestLat.current,
+            lon:latestLon.current,
+            loc:latestLoc.current
+        })
+        .then((res)=>{//axios.post 성공하면
+            console.log(res);
+        })
+        .catch((err)=> {//axios.post 오류나면
+            console.log(err);
+            alert(`오류가 발생했습니다.\n${err.message}`);
+            return;
+        })
+
+        window.location.href=`/done/${id}`;
+    }
+
     //서비스 이용완료
     function Done(){
         var send={
@@ -92,7 +112,8 @@ function Home(){
             "loc":latestLoc.current
         };
         localStorage.setItem("send",JSON.stringify(send));//localStorage에 저장해서 다른 파일에서도 사용할 수 있도록
-        window.location.href=`/done/${id}`;
+
+        sendAddr_axios();//서버로 위도, 경도, 주소 전달
     }
 
     return (

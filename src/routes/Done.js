@@ -1,10 +1,10 @@
 import "./Done.css";
 import {useState, useEffect, useRef} from "react";
 import axios from 'axios';//axios 사용하기 위함
-import { useParams } from "react-router";
+import {useParams} from "react-router";//url 변수 저장 위함
 
 function Done(){
-    const { id } = useParams();
+    const {id} = useParams();//id라는 url 변수를 저장
     const google=window.google;//react에서 google 사용하기 위함
 
     var [style1, styleSet1]=useState({display:'block'});
@@ -51,10 +51,8 @@ function Done(){
         }
     },[]);//뒤에 빈 배열 넣어 처음 한번만 실행
 
-    var take=document.getElementById('takePicture');
-    var show=document.querySelector('.show');
-
     useEffect(()=>{
+        var take=document.getElementById('takePicture');
         if (take){
             take.onchange=function(event){
                 var files=event.target.files;
@@ -66,6 +64,7 @@ function Done(){
                         setImgUrl=link.createObjectURL(latestFile.current);//objectURL 생성
                         latestImgUrl.current=setImgUrl;//useEffect 밖에서도 사용하기 위함
 
+                        var show=document.querySelector('.show');
                         show.src=latestImgUrl.current;
 
                         styleSet2({display:'none'});
@@ -94,63 +93,27 @@ function Done(){
         }
     });
 
-    var dataUrl;
-    function blobToDataUrl(){
+    //blob을 dataUrl로 바꾸고 다른 서버로 정보 전달
+    function blobToDataUrl_axios(){//form태그는 다른 서버로 전송x -> axios는 가능
         var text=document.getElementById('text');
         var reader=new FileReader();
         if (latestFile.current) reader.readAsDataURL(latestFile.current);
         reader.onload=function(event){
-            dataUrl=event.target.result;
+            var dataUrl=event.target.result;
             if (dataUrl){
-                console.log(text.value);
-                if (text.value==="") console.log('text is null');
-                console.log(dataUrl);
-                
-                var form=document.createElement("form");
-                form.setAttribute("method", "Post");  //Post 방식
-                form.setAttribute("action", `https://localhost:5000/call/message/${id}/imgsubmit`); //요청 보낼 주소 (수정 필요) `localhost:5000/call/message/:${id}/imgsubmit`
-                form.appendChild(text);
-
-                //dataUrl을 input형식으로 변환 후 form에 삽입
-                var sendUrl= document.createElement("input");
-                sendUrl.setAttribute("type", "hidden");
-                sendUrl.setAttribute("name", "dataUrl");
-                sendUrl.setAttribute("value", dataUrl);
-                form.appendChild(sendUrl);
-
-                document.body.appendChild(form);
-                form.submit();
-
-                thanks();
-            }
-        }
-    }
-
-    function blobToDataUrl_axios(){//혹시 form태그 동작하지 않으면 axios로 해보세용..!!!
-        var text=document.getElementById('text');
-        var reader=new FileReader();
-        if (latestFile.current) reader.readAsDataURL(latestFile.current);
-        reader.onload=function(event){
-            dataUrl=event.target.result;
-            if (dataUrl){
-                console.log(text.value);
-                console.log(dataUrl);
-
-                
                 axios.post(`http://localhost:5000/call/message/${id}/imgsubmit`, {//정보 전달할 페이지
-                    text:text.value,//null값 처리에 에러가 발생하진 않을지 모르겠어용,,
+                    text:text.value,
                     dataUrl:dataUrl
                 })
-                .then((res)=>{
+                .then((res)=>{//axios.post 성공하면
                     console.log(res);
                 })
-                .catch((err)=> {
+                .catch((err)=> {//axios.post 에러나면
                     console.log(err);
                     alert(`오류가 발생했습니다.\n${err.message}`);
                     return;
                 })
                 
-
                 thanks();
             }
         }
@@ -169,7 +132,7 @@ function Done(){
         <div className="loading" style={style1}>Wait a minutes...</div>
         <div className="d_group" style={style2}>
             <div className="here">
-                <img src="picture/location.png" className="pin" alt="pin mark" />
+                <img src="../picture/location.png" className="pin" alt="pin mark" /> {/*img 주소가 /done/picture 로 인식되므로 ../ 삽입*/}
                 현재 고객님의 위치는
                 <div id="insert"></div>
                 입니다.
@@ -183,7 +146,7 @@ function Done(){
         </div>
 
         <div className="picture" style={style3}>
-            <img src="picture/camera.png" className="cam" alt="pin" />
+            <img src="../picture/camera.png" className="cam" alt="pin" /> {/*img 주소가 /done/picture 로 인식되므로 ../ 삽입*/}
             &nbsp;현재 이미지를 전송할까요?
             <br /><br />
             <div className="boxgroup">
@@ -203,6 +166,5 @@ function Done(){
     </>
     );
 }
-
 
 export default Done;
