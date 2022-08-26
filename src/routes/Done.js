@@ -1,8 +1,10 @@
 import "./Done.css";
 import {useState, useEffect, useRef} from "react";
 import axios from 'axios';//axios 사용하기 위함
+import { useParams } from "react-router";
 
 function Done(){
+    const { id } = useParams();
     const google=window.google;//react에서 google 사용하기 위함
 
     var [style1, styleSet1]=useState({display:'block'});
@@ -106,7 +108,7 @@ function Done(){
                 
                 var form=document.createElement("form");
                 form.setAttribute("method", "Post");  //Post 방식
-                form.setAttribute("action", "/done"); //요청 보낼 주소 (수정 필요)
+                form.setAttribute("action", `https://localhost:5000/call/message/${id}/imgsubmit`); //요청 보낼 주소 (수정 필요) `localhost:5000/call/message/:${id}/imgsubmit`
                 form.appendChild(text);
 
                 //dataUrl을 input형식으로 변환 후 form에 삽입
@@ -134,16 +136,19 @@ function Done(){
                 console.log(text.value);
                 console.log(dataUrl);
 
-                try{
-                    axios.post(`~~해당 주소~~`, {//정보 전달할 페이지
-                        text:text.value,//null값 처리에 에러가 발생하진 않을지 모르겠어용,,
-                        dataUrl:dataUrl
-                    });
-                }
-                catch(err) {
+                
+                axios.post(`http://localhost:5000/call/message/${id}/imgsubmit`, {//정보 전달할 페이지
+                    text:text.value,//null값 처리에 에러가 발생하진 않을지 모르겠어용,,
+                    dataUrl:dataUrl
+                })
+                .then((res)=>{
+                    console.log(res);
+                })
+                .catch((err)=> {
+                    console.log(err);
                     alert(`오류가 발생했습니다.\n${err.message}`);
                     return;
-                }
+                })
                 
 
                 thanks();
@@ -152,11 +157,11 @@ function Done(){
     }
 
     function thanks(){
-        window.location.href='/thanks';
+        window.location.href=`/thanks`;
     }
 
     function done(){
-        window.location.href='/done';
+        window.location.href=`/done/${id}`;
     }
 
     return (
@@ -189,7 +194,7 @@ function Done(){
                 </div>
                 <input type="text" id="text" name="text" />
                 <br /><br />
-                <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox" onClick={blobToDataUrl}>
+                <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox" onClick={blobToDataUrl_axios}>
                     전송</button>
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox" onClick={done}>
                     다른 파일 전송</button>

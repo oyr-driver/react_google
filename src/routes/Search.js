@@ -1,7 +1,10 @@
 import "./Search.css";
 import {useState, useEffect, useRef} from "react";
+import { useParams } from "react-router";
 
 function Search(){
+    
+    const { id } = useParams();
     const google=window.google;//react에서 google 사용하기 위함
 
     var [map,setMap]=useState(); //useEffect 안에서도 사용하기 위하여 useState 이용해서 변수 선언
@@ -107,12 +110,12 @@ function Search(){
 
     //메인페이지로
     function Index(){
-        window.location.href='/';
+        window.location.href=`/${id}`;
     }
 
     //위치 재검색
     function Search(){
-        window.location.href='/search';
+        window.location.href=`/search/${id}`;
     }
 
     //서비스 이용완료
@@ -123,7 +126,7 @@ function Search(){
             "loc":latestLoc.current
         };
         localStorage.setItem("send",JSON.stringify(send));//localStorage에 저장해서 다른 파일에서도 사용할 수 있도록
-        window.location.href='/done';
+        window.location.href=`/done/${id}`;
     }
 
     return (

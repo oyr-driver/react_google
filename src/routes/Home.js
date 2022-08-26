@@ -1,7 +1,9 @@
 import "./Home.css";
 import {useState, useEffect, useRef} from "react";
+import { useParams } from "react-router";
 
 function Home(){
+    const { id } = useParams();
     const google=window.google;//react에서 google 사용하기 위함
 
     var map, marker;
@@ -79,7 +81,7 @@ function Home(){
 
     //주소검색 페이지로 이동
     function Search(){
-        window.location.href='/search';
+        window.location.href=`/search/${id}`;
     }
 
     //서비스 이용완료
@@ -90,7 +92,7 @@ function Home(){
             "loc":latestLoc.current
         };
         localStorage.setItem("send",JSON.stringify(send));//localStorage에 저장해서 다른 파일에서도 사용할 수 있도록
-        window.location.href='/done';
+        window.location.href=`/done/${id}`;
     }
 
     return (
