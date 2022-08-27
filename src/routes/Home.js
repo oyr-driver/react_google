@@ -87,7 +87,7 @@ function Home(){
 
     //서버로 위도, 경도, 주소 전달
     function sendAddr_axios(){//form태그는 다른 서버로 전송x -> axios는 가능
-        axios.post(`http://localhost:5000/call/message/${id}/imgsubmit`, {//정보 전달할 페이지  !!!!!!!!!!!!!!!!!!!!!!!!!주소수정???
+        axios.post(`http://localhost:5000/call/message/${id}/locsubmit`, {//주소 수정 완료!
             lat:latestLat.current,
             lon:latestLon.current,
             loc:latestLoc.current
