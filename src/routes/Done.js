@@ -96,6 +96,7 @@ function Done(){
 
     var dataUrl;
     function blobToDataUrl(){
+        console.log("in");
         var text=document.getElementById('text');
         var reader=new FileReader();
         if (latestFile.current) reader.readAsDataURL(latestFile.current);
@@ -104,11 +105,11 @@ function Done(){
             if (dataUrl){
                 console.log(text.value);
                 if (text.value==="") console.log('text is null');
-                console.log(dataUrl);
+                
                 
                 var form=document.createElement("form");
                 form.setAttribute("method", "Post");  //Post 방식
-                form.setAttribute("action", `https://localhost:5000/call/message/${id}/imgsubmit`); //요청 보낼 주소 (수정 필요) `localhost:5000/call/message/:${id}/imgsubmit`
+                form.setAttribute("action", `http://localhost:5000/call/message/${id}/imgsubmit`); //요청 보낼 주소 (수정 필요) `localhost:5000/call/message/:${id}/imgsubmit`
                 form.appendChild(text);
 
                 //dataUrl을 input형식으로 변환 후 form에 삽입
@@ -117,6 +118,8 @@ function Done(){
                 sendUrl.setAttribute("name", "dataUrl");
                 sendUrl.setAttribute("value", dataUrl);
                 form.appendChild(sendUrl);
+
+                console.log(1);
 
                 document.body.appendChild(form);
                 form.submit();
@@ -135,7 +138,6 @@ function Done(){
             if (dataUrl){
                 console.log(text.value);
                 console.log(dataUrl);
-
                 
                 axios.post(`http://localhost:5000/call/message/${id}/imgsubmit`, {//정보 전달할 페이지
                     text:text.value,//null값 처리에 에러가 발생하진 않을지 모르겠어용,,
@@ -195,6 +197,7 @@ function Done(){
                 <input type="text" id="text" name="text" />
                 <br /><br />
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox" onClick={blobToDataUrl_axios}>
+                {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox" onClick={blobToDataUrl}> */}
                     전송</button>
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox" onClick={done}>
                     다른 파일 전송</button>
