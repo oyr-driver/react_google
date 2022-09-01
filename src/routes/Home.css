@@ -9,6 +9,13 @@
     margin-top:600px;
     text-align:center;
 }
+.locpic{/*현재 위치를 전송하시겠습니까의 마크*/
+    width:150px; 
+    float:left; 
+    margin-top:40px;
+    margin-left:70px;
+    margin-right:-40px;
+}
 .check{/*현재 위치가 맞습니까?*/
     font-size:60px;
     margin-left:60px;

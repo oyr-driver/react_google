@@ -4,7 +4,7 @@ import axios from 'axios';//axios 사용하기 위함
 import {useParams} from "react-router";//url 변수 저장 위함
 
 function Home(){
-    const {id} = useParams();//id라는 url 변수를 저장
+    const {id, flag} = useParams();//id라는 url 변수를 저장
     const google=window.google;//react에서 google 사용하기 위함
 
     var map, marker;
@@ -19,11 +19,17 @@ function Home(){
 
     var [style1, styleSet1]=useState({display:'block'});
     var [style2, styleSet2]=useState({display:'none'});
+    var [style3, styleSet3]=useState({display:'none'});
 
-    useEffect(()=>{//로딩시간동안 구뜨 마크 뜨도록 하기 위함
+    useEffect(()=>{//로딩시간동안 wait a minutes 뜨도록 하기 위함
 
         //접속 위치를 얻기
         if (navigator.geolocation && google.maps) {//구글지도가 로딩되고, geolocation 기능이 동작한다면
+
+            if(flag==='b') {
+                styleSet1({display:'none'});
+                styleSet2({display:'block'});//b이면 style2 보이게
+            }
 
             navigator.geolocation.getCurrentPosition(function(position) {
                 setLat = position.coords.latitude; // 위도
@@ -37,8 +43,10 @@ function Home(){
                 };
                 map = new google.maps.Map(document.getElementById("googleMap"), mapOptions );
 
-                styleSet1({display:'none'});//지도가 로딩되면 구뜨 마크 가리기
-                styleSet2({display:'block'});//지도가 로딩되면 홈페이지 나타나도록
+                if(flag==='a'){
+                    styleSet1({display:'none'});//지도가 로딩되면 구뜨 마크 가리기
+                    styleSet3({display:'block'});//지도가 로딩되면 홈페이지 나타나도록
+                }
 
                 marker = new google.maps.Marker({position: {lat: setLat, lng: setLon}, map: map});
 
@@ -54,7 +62,7 @@ function Home(){
                 })
             });
         }
-    },[]);//빈 배열 넣어 처음 한번만 실행
+    },[]);//빈 배열을 넣어 처음 한번만 실행
 
     //위도 경도를 주소로 변환
     function latlon2addr(lat, lon){
@@ -80,9 +88,14 @@ function Home(){
         infowindow.open(map, marker);
     }
 
+    function change(){
+        styleSet2({display:'none'});//위치 전송 묻기 없애기
+        styleSet3({display:'block'});//위치 뜨도록
+    }
+
     //주소검색 페이지로 이동
     function Search(){
-        window.location.href=`/search/${id}`;
+        window.location.href=`/search/${id}/${flag}`;
     }
 
     //서버로 위도, 경도, 주소 전달
@@ -101,7 +114,7 @@ function Home(){
             return;
         })
 
-        window.location.href=`/done/${id}`;
+        window.location.href=`/done/${id}/${flag}`;
     }
 
     //서비스 이용완료
@@ -116,12 +129,30 @@ function Home(){
         sendAddr_axios();//서버로 위도, 경도, 주소 전달
     }
 
+    function thanks(){
+        window.location.href='/thanks';
+    }
+
     return (
     <>
-        <div className="loading" style={style1}>GOODDRIVE</div>
-        <div className="box" style={style2}>
+        <div className="loading" style={style1}>Wait a minutes...</div>
+
+        <div className="cam_group" style={style2}>
+            <div className="buttonbox_cam">
+                <img src="../../picture/location.png" className="locpic" alt="loc mark" /> {/*img 주소가 /loc/a(b)/picture 로 인식되므로 ../ 삽입*/}
+                <div className="takePic">현재 위치를 <br />전송하시겠습니까?</div>
+                <div className="cambutton">
+                    <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={thanks}>
+                        아니요</button>
+                    <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
+                        네</button>
+                </div>
+            </div>
+        </div>
+
+        <div className="box" style={style3}>
             <div className="check">
-                <img src="picture/location.png" className="pin" alt="pin mark" /> {/*public 내에 picture 있으므로 picture만 작성*/}
+                <img src="../../picture/location.png" className="pin" alt="pin mark" /> {/*img 주소가 /loc/a(b)/picture 로 인식되므로 ../ 삽입*/}
                 현재 위치가 맞습니까?
             </div>
             <div className="adjust">
