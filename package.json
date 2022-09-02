@@ -1,6 +1,7 @@
 {
   "name": "google_react",
   "version": "0.1.0",
+  "type":"module",
   "private": true,
   "dependencies": {
     "@googlemaps/react-wrapper": "^1.1.35",
