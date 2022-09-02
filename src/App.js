@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";//router 쓰기위함
+import Check from "./routes/Check";
 import Search from "./routes/Search";
 import Done from "./routes/Done";
+import Camera from "./routes/Camera";
 import Thanks from "./routes/Thanks";
 import Home from "./routes/Home";
 
@@ -11,10 +13,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/search/:id" element={<Search />}></Route> {/*:는 뒤에 변수가 옴, useParams를 이용해 id(변수) 값 설정(Search에서) */}
-        <Route path="/done/:id" element={<Done />}></Route>
+        <Route path="/search/:id/:flag" element={<Search />}></Route> {/*:는 뒤에 변수가 옴, useParams를 이용해 id(변수) 값 설정(Search에서) */}
+        <Route path="/done/:id/:flag" element={<Done />}></Route>
+        <Route path="/camera/:id/:flag" element={<Camera />}></Route>
         <Route path="/thanks" element={<Thanks />}></Route>
-        <Route path="/:id" element={<Home />}></Route>
+        <Route path="/loc/:id/:flag" element={<Home />}></Route>
+        <Route path="/:id" element={<Check />}></Route>
       </Routes>
     </BrowserRouter>
   );
