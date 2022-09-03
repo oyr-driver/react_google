@@ -106,7 +106,7 @@ function Done(){
 
     var dataUrl;
     //blob을 dataUrl로 바꾸고 다른 서버로 정보 전달
-    function blobToDataUrl_axios(){//form태그는 다른 서버로 전송x -> axios는 가능
+    function blobToDataUrl(){//form태그는 다른 서버로 전송x -> axios는 가능
 
         var text=document.blobToDataUrl('text');
         var reader=new FileReader();
@@ -121,7 +121,7 @@ function Done(){
                 
                 var form=document.createElement("form");
                 form.setAttribute("method", "Post");  //Post 방식
-                form.setAttribute("action", `http://goodde.kr:3010/call/message/${id}/imgsubmit`); //요청 보낼 주소 (수정 필요) `goodde.kr:3010/call/message/:${id}/imgsubmit`
+                form.setAttribute("action", `https://admin.goodde.kr/call/message/${id}/imgsubmit`); //요청 보낼 주소 (수정 필요) `goodde.kr:3010/call/message/:${id}/imgsubmit`
                 form.appendChild(text);
 
                 //dataUrl을 input형식으로 변환 후 form에 삽입
@@ -151,7 +151,7 @@ function Done(){
                 console.log(text.value);
                 console.log(dataUrl);
                 
-                axios.post(`http://goodde.kr:3010/call/message/${id}/imgsubmit`, {//정보 전달할 페이지
+                axios.post(`https://admin.goodde.kr/call/message/${id}/imgsubmit`, {//정보 전달할 페이지
                     text:text.value,
                     dataUrl:dataUrl
                 })
@@ -174,7 +174,7 @@ function Done(){
     function text_axios(){//axios 써서 서버로 정보 보내기
         var text=document.getElementById('text');
         if (text){
-            axios.post(`http://goodde.kr:3010/call/message/${id}/textsubmit`, {//정보 전달할 페이지
+            axios.post(`https://admin.goodde.kr/call/message/${id}/textsubmit`, {//정보 전달할 페이지
                 text:text.value,
             })
             .then((res)=>{//axios.post 성공하면

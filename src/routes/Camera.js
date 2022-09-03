@@ -79,7 +79,7 @@ function Camera(){
         reader.onload=function(event){
             var dataUrl=event.target.result;
             if (dataUrl){
-                axios.post(`http://goodde.kr:3010/call/message/${id}/imgsubmit`, {//정보 전달할 페이지
+                axios.post(`https://admin.goodde.kr/call/message/${id}/imgsubmit`, {//정보 전달할 페이지
                     text:text.value,
                     dataUrl:dataUrl
                 })
