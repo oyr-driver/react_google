@@ -1,21 +1,14 @@
 import "./Done.css";
-import {useState, useEffect, useRef} from "react";
+import {useState, useEffect} from "react";
 import axios from 'axios';//axios 사용하기 위함
 import {useParams} from "react-router";//url 변수 저장 위함
 
 function Done(){
-    const {id} = useParams();//id라는 url 변수를 저장
+    const {id, flag} = useParams();//id라는 url 변수를 저장
     const google=window.google;//react에서 google 사용하기 위함
 
     var [style1, styleSet1]=useState({display:'block'});
     var [style2, styleSet2]=useState({display:'none'});
-    var [style3, styleSet3]=useState({display:'none'});
-
-    var [file, setFile]=useState();//react 내에서 값 바꾸기 위하여 useState 이용해서 변수 선언
-    var [imgUrl, setImgUrl]=useState();
-
-    var latestFile=useRef(file);//바뀐 값 사용하기 위함
-    var latestImgUrl=useRef(imgUrl);
 
     var receive=JSON.parse(localStorage.getItem("send"));//localStorage에 저장된 send객체값 가져오기
     var lat, lon, loc;
@@ -51,47 +44,17 @@ function Done(){
         }
     },[]);//뒤에 빈 배열 넣어 처음 한번만 실행
 
-    useEffect(()=>{
-        var take=document.getElementById('takePicture');
-        if (take){
-            take.onchange=function(event){
-                var files=event.target.files;
-                if (files && files.length>0) {
-                    setFile=files[0];
-                    latestFile.current=setFile;//useEffect 밖에서도 사용하기 위함
-                    try{//오류있을수도 있는 문장
-                        var link=window.URL||window.webkitURL;//window.URL 객체 얻기
-                        setImgUrl=link.createObjectURL(latestFile.current);//objectURL 생성
-                        latestImgUrl.current=setImgUrl;//useEffect 밖에서도 사용하기 위함
+    function textCheck(){//글자수 제한
+        var text=document.getElementById('text').value;
+        var textLen=text.length;
 
-                        var show=document.querySelector('.show');
-                        show.src=latestImgUrl.current;
-
-                        styleSet2({display:'none'});
-                        styleSet3({display:'block'});  
-
-                        var picture=document.querySelector('.picture');
-                        picture.onload=function(){link.revokeObjectURL(imgUrl);}//이미지 띄우고 url 취소하기(메모리 절약 위함)
-                    }
-                    catch(e){//에러 있다면
-                        console.log('error');
-                        try{
-                            var fileReader=new FileReader();//createObject가 안되는 경우
-                            fileReader.onload=function(event){
-                                setImgUrl=event.target.result;//useEffect 밖에서도 사용하기 위함
-                                latestImgUrl.current=setImgUrl;
-                            };
-                            fileReader.readAsDataURL(file);
-                        }
-                        catch(e){
-                            var error=document.getElementById('error');
-                            if(error) error.innerHTML="Neither createObjectURL or FileReader are supported";
-                        }
-                    }
-                }
-            }
+        if(textLen>500){
+            alert('500자 이상 작성할 수 없습니다.');
+            text=text.substr(0, 500);//0에서 500자까지만 인식
+            document.getElementById('text').value=text;
+            document.getElementById('text').focus();
         }
-    });
+    }
 
 
     var dataUrl;
@@ -159,12 +122,9 @@ function Done(){
         }
     }
 
-    function thanks(){
-        window.location.href=`/thanks`;
-    }
-
-    function done(){
-        window.location.href=`/done/${id}`;
+    function change(){
+        if(flag==='a') window.location.href=`/camera/${id}/${flag}`;
+        else  window.location.href='/thanks';
     }
 
     return (
@@ -172,7 +132,7 @@ function Done(){
         <div className="loading" style={style1}>Wait a minutes...</div>
         <div className="d_group" style={style2}>
             <div className="here">
-                <img src="../picture/location.png" className="pin" alt="pin mark" /> {/*img 주소가 /done/picture 로 인식되므로 ../ 삽입*/}
+                <img src="../../picture/location.png" className="pin" alt="pin mark" /> {/*img 주소가 /done/a(b)/picture 로 인식되므로 ../ 삽입*/}
                 현재 고객님의 위치는
                 <div id="insert"></div>
                 입니다.
@@ -203,6 +163,13 @@ function Done(){
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox" onClick={done}>
                     다른 파일 전송</button>
             </div>
+
+            <textarea rows="10" id="text" name="text" onKeyUp={textCheck}></textarea>
+            <br />
+            <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios}>
+                등록</button>
+            <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
+                취소</button>
         </div>
     </>
     );

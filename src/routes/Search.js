@@ -4,18 +4,18 @@ import axios from 'axios';//axios 사용하기 위함
 import {useParams} from "react-router";//url 변수 저장 위함
 
 function Search(){
-    
-    const {id} = useParams();//id라는 url 변수를 저장
+
+    const {id, flag} = useParams();//id라는 url 변수를 저장
     const google=window.google;//react에서 google 사용하기 위함
 
     var [map,setMap]=useState(); //useEffect 안에서도 사용하기 위하여 useState 이용해서 변수 선언
     var [marker, setMarker]=useState(); 
     var [geocoder, setGeocoder]=useState(); 
-    
+
     var latestMap=useRef(map);//useEffect 안에서 바뀐 값을 useEffect 밖에서도 사용하기 위함
     var latestMarker=useRef(marker);
     var latestGeocoder=useRef(geocoder);
-    
+
     var [lat, setLat]=useState();//react 내에서 값 바꾸기 위하여 useState 이용해서 변수 선언
     var [lon, setLon]=useState();
     var [loc, setLoc]=useState();
@@ -23,7 +23,7 @@ function Search(){
     var latestLat=useRef(lat);//바뀐 값 사용하기 위함
     var latestLon=useRef(lon);
     var latestLoc=useRef(loc);
-    
+
     var [style1, styleSet1]=useState({display:'block'});
     var [style2, styleSet2]=useState({display:'none'});
     var [change1, setChange1]=useState({display:'inline'});
@@ -111,12 +111,12 @@ function Search(){
 
     //메인페이지로
     function Index(){
-        window.location.href=`/${id}`;
+        window.location.href=`/loc/${id}/${flag}`;
     }
 
     //위치 재검색
     function Search(){
-        window.location.href=`/search/${id}`;
+        window.location.href=`/search/${id}/${flag}`;
     }
 
     //위도, 경도, 주소 정보를 서버로 보내기
@@ -135,7 +135,7 @@ function Search(){
             return;
         })
 
-        window.location.href=`/done/${id}`;
+        window.location.href=`/done/${id}/${flag}`;
     }
 
     //서비스 이용완료
@@ -155,7 +155,7 @@ function Search(){
         <div className="loading" style={style1}>Wait a minutes...</div>
         <div className="group" style={style2}>
             <div className="head">
-                <img src="../picture/location.png" className="pin" alt="pin mark" /> {/*img 주소가 /search/picture 로 인식되므로 ../ 삽입*/}
+                <img src="../../picture/location.png" className="pin" alt="pin mark" /> {/*img 주소가 /search/a(b)/picture 로 인식되므로 ../ 삽입*/}
                 <span className="change1" style={change1}>위치를 작성해주세요</span>
                 <span className="change2" style={change2}>작성하신 위치가 맞습니까?</span>
             </div>
