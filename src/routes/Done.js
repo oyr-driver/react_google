@@ -211,7 +211,11 @@ function Done(){
 
         
             <div id="d_googleMap"></div> 
-
+            
+            <br /> <br />
+                <div className="write">
+                    불편내용 적어주세요  <span className="choose">*(선택)</span>
+                </div>
             <textarea rows="10" id="text" name="text" onKeyUp={textCheck}></textarea>
                 <br />
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios}>
