@@ -206,13 +206,22 @@ function Done(){
                 현재 고객님의 위치는
                 <div id="insert"></div>
                 입니다.
+                
             </div>
-        
-            <div id="d_googleMap"></div>  
 
-            <div className="camera">현재 상황을 사진으로 알리고 싶다면?</div>
+        
+            <div id="d_googleMap"></div> 
+
+            <textarea rows="10" id="text" name="text" onKeyUp={textCheck}></textarea>
+                <br />
+                <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios}>
+                    등록</button>
+                <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
+                    취소</button> 
+
+            {/* <div className="camera">현재 상황을 사진으로 알리고 싶다면?</div>
             <input type="file" id="takePicture" name="picture" accept="image/*" />
-            <label htmlFor="takePicture" className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox alert">현 상황 알리기</label>
+            <label htmlFor="takePicture" className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox alert">현 상황 알리기</label> */}
         </div>
 
         <div className="picture" style={style3}>
