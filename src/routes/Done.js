@@ -174,7 +174,7 @@ function Done(){
     function text_axios(){//axios 써서 서버로 정보 보내기
         var text=document.getElementById('text');
         if (text){
-            axios.post(`http://localhost:5000/call/message/${id}/textsubmit`, {//정보 전달할 페이지
+            axios.post(`http://goodde.kr:3010/call/message/${id}/textsubmit`, {//정보 전달할 페이지
                 text:text.value,
             })
             .then((res)=>{//axios.post 성공하면
