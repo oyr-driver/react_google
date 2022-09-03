@@ -9,6 +9,13 @@ function Done(){
 
     var [style1, styleSet1]=useState({display:'block'});
     var [style2, styleSet2]=useState({display:'none'});
+    var [style3, styleSet3]=useState({display:'none'});
+
+    var [file, setFile]=useState();//react 내에서 값 바꾸기 위하여 useState 이용해서 변수 선언
+    var [imgUrl, setImgUrl]=useState();
+
+    var latestFile=useRef(file);//바뀐 값 사용하기 위함
+    var latestImgUrl=useRef(imgUrl);
 
     var receive=JSON.parse(localStorage.getItem("send"));//localStorage에 저장된 send객체값 가져오기
     var lat, lon, loc;
@@ -43,7 +50,47 @@ function Done(){
             styleSet2({display:'block'});
         }
     },[]);//뒤에 빈 배열 넣어 처음 한번만 실행
+    useEffect(()=>{
+        var take=document.getElementById('takePicture');
+        if (take){
+            take.onchange=function(event){
+                var files=event.target.files;
+                if (files && files.length>0) {
+                    setFile=files[0];
+                    latestFile.current=setFile;//useEffect 밖에서도 사용하기 위함
+                    try{//오류있을수도 있는 문장
+                        var link=window.URL||window.webkitURL;//window.URL 객체 얻기
+                        setImgUrl=link.createObjectURL(latestFile.current);//objectURL 생성
+                        latestImgUrl.current=setImgUrl;//useEffect 밖에서도 사용하기 위함
 
+                        var show=document.querySelector('.show');
+                        show.src=latestImgUrl.current;
+
+                        styleSet2({display:'none'});
+                        styleSet3({display:'block'});  
+
+                        var picture=document.querySelector('.picture');
+                        picture.onload=function(){link.revokeObjectURL(imgUrl);}//이미지 띄우고 url 취소하기(메모리 절약 위함)
+                    }
+                    catch(e){//에러 있다면
+                        console.log('error');
+                        try{
+                            var fileReader=new FileReader();//createObject가 안되는 경우
+                            fileReader.onload=function(event){
+                                setImgUrl=event.target.result;//useEffect 밖에서도 사용하기 위함
+                                latestImgUrl.current=setImgUrl;
+                            };
+                            fileReader.readAsDataURL(file);
+                        }
+                        catch(e){
+                            var error=document.getElementById('error');
+                            if(error) error.innerHTML="Neither createObjectURL or FileReader are supported";
+                        }
+                    }
+                }
+            }
+        }
+    });
     function textCheck(){//글자수 제한
         var text=document.getElementById('text').value;
         var textLen=text.length;
@@ -121,7 +168,13 @@ function Done(){
             }
         }
     }
+    function thanks(){
+        window.location.href=`/thanks`;
+    }
 
+    function done(){
+        window.location.href=`/done/${id}`;
+    }
     function change(){
         if(flag==='a') window.location.href=`/camera/${id}/${flag}`;
         else  window.location.href='/thanks';
