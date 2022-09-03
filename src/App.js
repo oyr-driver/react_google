@@ -11,7 +11,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/search/:id" element={<Search />}></Route>
+        <Route path="/search/:id" element={<Search />}></Route> {/*:는 뒤에 변수가 옴, useParams를 이용해 id(변수) 값 설정(Search에서) */}
         <Route path="/done/:id" element={<Done />}></Route>
         <Route path="/thanks" element={<Thanks />}></Route>
         <Route path="/:id" element={<Home />}></Route>

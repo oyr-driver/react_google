@@ -1,10 +1,11 @@
 import "./Search.css";
 import {useState, useEffect, useRef} from "react";
-import { useParams } from "react-router";
+import axios from 'axios';//axios 사용하기 위함
+import {useParams} from "react-router";//url 변수 저장 위함
 
 function Search(){
     
-    const { id } = useParams();
+    const {id} = useParams();//id라는 url 변수를 저장
     const google=window.google;//react에서 google 사용하기 위함
 
     var [map,setMap]=useState(); //useEffect 안에서도 사용하기 위하여 useState 이용해서 변수 선언
@@ -118,6 +119,25 @@ function Search(){
         window.location.href=`/search/${id}`;
     }
 
+    //위도, 경도, 주소 정보를 서버로 보내기
+    function sendAddr_axios(){//form태그는 다른 서버로 전송x -> axios는 가능
+        axios.post(`http://goodde.kr:3010/call/message/${id}/locsubmit`, {//정보 전달할 페이지
+            lat:latestLat.current,
+            lon:latestLon.current,
+            loc:latestLoc.current
+        })
+        .then((res)=>{//axios.post 성공하면
+            console.log(res);
+        })
+        .catch((err)=> {//axios.post 오류나면
+            console.log(err);
+            alert(`오류가 발생했습니다.\n${err.message}`);
+            return;
+        })
+
+        window.location.href=`/done/${id}`;
+    }
+
     //서비스 이용완료
     function Done(){
         var send={
@@ -126,7 +146,8 @@ function Search(){
             "loc":latestLoc.current
         };
         localStorage.setItem("send",JSON.stringify(send));//localStorage에 저장해서 다른 파일에서도 사용할 수 있도록
-        window.location.href=`/done/${id}`;
+
+        sendAddr_axios();//위도, 경도, 주소 정보를 서버로 보내기
     }
 
     return (
@@ -134,7 +155,7 @@ function Search(){
         <div className="loading" style={style1}>Wait a minutes...</div>
         <div className="group" style={style2}>
             <div className="head">
-                <img src="picture/location.png" className="pin" alt="pin mark" />
+                <img src="../picture/location.png" className="pin" alt="pin mark" /> {/*img 주소가 /search/picture 로 인식되므로 ../ 삽입*/}
                 <span className="change1" style={change1}>위치를 작성해주세요</span>
                 <span className="change2" style={change2}>작성하신 위치가 맞습니까?</span>
             </div>

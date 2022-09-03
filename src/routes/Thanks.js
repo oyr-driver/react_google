@@ -10,5 +10,4 @@ function Thanks(){
     );
 }
 
-
 export default Thanks;

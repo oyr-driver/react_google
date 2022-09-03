@@ -9,7 +9,7 @@
     margin-top:600px;
     text-align:center;
 }
-.check{
+.check{/*현재 위치가 맞습니까?*/
     font-size:60px;
     margin-left:60px;
 }
@@ -17,7 +17,7 @@
     width:75px;
     height:80px;
 }
-.adjust{
+.adjust{/*위치를 조정해주세요*/
     color:red;
     font-size:50px;
     margin-left:85px;
@@ -27,7 +27,7 @@
     height:800px;
     margin:auto;
 }
-.box{
+.box{/*전체적인 페이지*/
     margin-top:200px;
 }
 .detailAddr{/*infowindow(주소정보들)*/
