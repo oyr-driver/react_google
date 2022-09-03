@@ -106,7 +106,7 @@ function Done(){
 
     var dataUrl;
     //blob을 dataUrl로 바꾸고 다른 서버로 정보 전달
-    function blobToDataUrl_axios(){//form태그는 다른 서버로 전송x -> axios는 가능
+    function blobToDataUrl(){//form태그는 다른 서버로 전송x -> axios는 가능
 
         var text=document.blobToDataUrl('text');
         var reader=new FileReader();
