@@ -1,5 +1,5 @@
 import "./Done.css";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import axios from 'axios';//axios 사용하기 위함
 import {useParams} from "react-router";//url 변수 저장 위함
 
@@ -171,7 +171,24 @@ function Done(){
     function thanks(){
         window.location.href=`/thanks`;
     }
+    function text_axios(){//axios 써서 서버로 정보 보내기
+        var text=document.getElementById('text');
+        if (text){
+            axios.post(`http://localhost:5000/call/message/${id}/textsubmit`, {//정보 전달할 페이지
+                text:text.value,
+            })
+            .then((res)=>{//axios.post 성공하면
+                console.log(res);
+            })
+            .catch((err)=> {//axios.post 에러나면
+                console.log(err);
+                alert(`오류가 발생했습니다.\n${err.message}`);
+                return;
+            })
 
+            change();
+        }
+    }
     function done(){
         window.location.href=`/done/${id}`;
     }
