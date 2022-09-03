@@ -212,7 +212,7 @@ function Done(){
         
             <div id="d_googleMap"></div> 
             
-            <br /> <br />
+            <br />
                 <div className="write">
                     불편내용 적어주세요  <span className="choose">*(선택)</span>
                 </div>
