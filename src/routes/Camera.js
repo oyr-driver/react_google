@@ -152,8 +152,10 @@ function Camera(){
                 </div>
                 <textarea rows="10" id="text" name="text" onKeyUp={textCheck}></textarea>
                 <br /><br />
-                <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={blobToDataUrl_axios}>
-                    등록</button>
+                {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={blobToDataUrl_axios}>
+                    등록</button> */}
+                <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={check}>
+                등록</button>
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={check}>
                     취소</button>
             </div>
