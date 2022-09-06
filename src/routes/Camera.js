@@ -79,7 +79,8 @@ function Camera(){
         reader.onload=function(event){
             var dataUrl=event.target.result;
             if (dataUrl){
-                axios.post(`https://admin.goodde.kr/call/message/${id}/imgsubmit`, {//정보 전달할 페이지
+                var url = process.env.SEND_URL+`/call/message/${id}/imgsubmit`
+                axios.post(url, {//정보 전달할 페이지
                     text:text.value,
                     dataUrl:dataUrl
                 })
@@ -154,6 +155,8 @@ function Camera(){
                 <br /><br />
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={blobToDataUrl_axios}>
                     등록</button>
+                {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={check}>
+                등록</button> */}
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={check}>
                     취소</button>
             </div>
