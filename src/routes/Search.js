@@ -121,8 +121,7 @@ function Search(){
 
     //위도, 경도, 주소 정보를 서버로 보내기
     function sendAddr_axios(){//form태그는 다른 서버로 전송x -> axios는 가능
-        var url = process.env.SEND_URL+`/call/message/${id}/locsubmit`
-        axios.post(url, {//정보 전달할 페이지
+        axios.post(`https://admin.goodde.kr/call/message/${id}/locsubmit`, {//정보 전달할 페이지
             lat:latestLat.current,
             lon:latestLon.current,
             loc:latestLoc.current
