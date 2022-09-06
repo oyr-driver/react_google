@@ -92,8 +92,19 @@ function Done(){
             }
         }
     });
-    function textCheck(){//글자수 제한
-        var text=document.getElementById('text').value;
+    function textCheck_done(){//글자수 제한
+        var text=document.getElementById('text_done').value;
+        var textLen=text.length;
+
+        if(textLen>500){
+            alert('500자 이상 작성할 수 없습니다.');
+            text=text.substr(0, 500);//0에서 500자까지만 인식
+            document.getElementById('text').value=text;
+            document.getElementById('text').focus();
+        }
+    }
+    function textCheck_cam(){//글자수 제한
+        var text=document.getElementById('text_cam').value;
         var textLen=text.length;
 
         if(textLen>500){
@@ -107,42 +118,7 @@ function Done(){
 
     var dataUrl;
     //blob을 dataUrl로 바꾸고 다른 서버로 정보 전달
-    function blobToDataUrl(){//form태그는 다른 서버로 전송x -> axios는 가능
-
-        var text=document.blobToDataUrl('text');
-        var reader=new FileReader();
-        if (latestFile.current) reader.readAsDataURL(latestFile.current);
-        reader.onload=function(event){
-            var dataUrl=event.target.result;
-            if (dataUrl){
-
-                console.log(text.value);
-                if (text.value==="") console.log('text is null');
-                
-                
-                var form=document.createElement("form");
-                form.setAttribute("method", "Post");  //Post 방식
-                form.setAttribute("action", `https://admin.goodde.kr/call/message/${id}/imgsubmit`); //요청 보낼 주소 (수정 필요) `goodde.kr:3010/call/message/:${id}/imgsubmit`
-                form.appendChild(text);
-
-                //dataUrl을 input형식으로 변환 후 form에 삽입
-                var sendUrl= document.createElement("input");
-                sendUrl.setAttribute("type", "hidden");
-                sendUrl.setAttribute("name", "dataUrl");
-                sendUrl.setAttribute("value", dataUrl);
-                form.appendChild(sendUrl);
-
-                console.log(1);
-
-                document.body.appendChild(form);
-                form.submit();
-
-                thanks();
-            }
-        }
-    }
-
-    function blobToDataUrl_axios(){//혹시 form태그 동작하지 않으면 axios로 해보세용..!!!
+    function blobToDataUrl_axios(){
         var text=document.getElementById('text');
         var reader=new FileReader();
         if (latestFile.current) reader.readAsDataURL(latestFile.current);
@@ -172,8 +148,26 @@ function Done(){
     function thanks(){
         window.location.href=`/thanks`;
     }
-    function text_axios(){//axios 써서 서버로 정보 보내기
-        var text=document.getElementById('text');
+    function text_axios_done(){//axios 써서 서버로 정보 보내기
+        var text=document.getElementById('text_done');
+        if (text){
+            axios.post(`https://admin.goodde.kr/call/message/${id}/textsubmit`, {//정보 전달할 페이지
+                text:text.value,
+            })
+            .then((res)=>{//axios.post 성공하면
+                console.log(res);
+            })
+            .catch((err)=> {//axios.post 에러나면
+                console.log(err);
+                alert(`오류가 발생했습니다.\n${err.message}`);
+                return;
+            })
+
+            change();
+        }
+    }
+    function text_axios_cam(){//axios 써서 서버로 정보 보내기
+        var text=document.getElementById('text_cam');
         if (text){
             var url = process.env.SEND_URL+`/call/message/${id}/textsubmit`
             axios.post(url, {//정보 전달할 페이지
@@ -218,9 +212,9 @@ function Done(){
                 <div className="write">
                     불편내용 적어주세요  <span className="choose">*(선택)</span>
                 </div>
-            <textarea rows="10" id="text" name="text" onKeyUp={textCheck}></textarea>
+            <textarea rows="10" id="text_done" name="text" onKeyUp={textCheck_done}></textarea>
                 <br />
-                <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios}>
+                <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios_done}>
                     등록</button>
                 {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
                     등록</button> */}
@@ -245,18 +239,17 @@ function Done(){
                 <input type="text" id="text" name="text" />
                 <br /><br />
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox" onClick={blobToDataUrl_axios}>
-                {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox" onClick={blobToDataUrl}> */}
                     전송</button>
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox" onClick={done}>
                     다른 파일 전송</button>
             </div>
 
-            <textarea rows="10" id="text" name="text" onKeyUp={textCheck}></textarea>
+            <textarea rows="10" id="text_camera" name="text" onKeyUp={textCheck_cam}></textarea>
             <br />
-            <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios}>
-                등록</button>
             {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
             등록</button>  */}
+            <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios_cam}>
+                등록</button>
             <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
                 취소</button>
         </div>
