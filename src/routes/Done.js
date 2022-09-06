@@ -215,6 +215,8 @@ function Done(){
 
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios_done}>
                     등록</button>
+                {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
+                    등록</button> */}
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
                     취소</button> 
 
@@ -245,6 +247,7 @@ function Done(){
             <br />
             <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios_cam}>
                 등록</button>
+
             <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
                 취소</button>
         </div>
