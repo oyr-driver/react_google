@@ -218,10 +218,10 @@ function Done(){
                 </div>
             <textarea rows="10" id="text" name="text" onKeyUp={textCheck}></textarea>
                 <br />
-                {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios}>
-                    등록</button> */}
-                <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
+                <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios}>
                     등록</button>
+                {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
+                    등록</button> */}
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
                     취소</button> 
 
@@ -251,10 +251,10 @@ function Done(){
 
             <textarea rows="10" id="text" name="text" onKeyUp={textCheck}></textarea>
             <br />
-            {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios}>
-                등록</button> */}
-            <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
-            등록</button> 
+            <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios}>
+                등록</button>
+            {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
+            등록</button>  */}
             <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
                 취소</button>
         </div>
