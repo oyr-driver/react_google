@@ -98,8 +98,19 @@ function Done(){
         if(textLen>500){
             alert('500자 이상 작성할 수 없습니다.');
             text=text.substr(0, 500);//0에서 500자까지만 인식
-            document.getElementById('text').value=text;
-            document.getElementById('text').focus();
+            document.getElementById('tex_done').value=text;
+            document.getElementById('tex_done').focus();
+        }
+    }
+    function textCheck_img(){//글자수 제한
+        var text=document.getElementById('text_img').value;
+        var textLen=text.length;
+
+        if(textLen>500){
+            alert('500자 이상 작성할 수 없습니다.');
+            text=text.substr(0, 500);//0에서 500자까지만 인식
+            document.getElementById('text_img').value=text;
+            document.getElementById('text_img').focus();
         }
     }
     function textCheck_cam(){//글자수 제한
@@ -109,8 +120,8 @@ function Done(){
         if(textLen>500){
             alert('500자 이상 작성할 수 없습니다.');
             text=text.substr(0, 500);//0에서 500자까지만 인식
-            document.getElementById('text').value=text;
-            document.getElementById('text').focus();
+            document.getElementById('text_cam').value=text;
+            document.getElementById('text_cam').focus();
         }
     }
 
@@ -210,7 +221,7 @@ function Done(){
                 <div className="write">
                     불편내용 적어주세요  <span className="choose">*(선택)</span>
                 </div>
-            <textarea rows="10" id="text_done" name="text" onKeyUp={textCheck_done}></textarea>
+                <textarea rows="10" id="text_done" name="text_done" onKeyUp={textCheck_done}></textarea>
                 <br />
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios_done}>
                     등록</button>
@@ -232,7 +243,7 @@ function Done(){
                 <div className="write">
                     불편내용 적어주세요  <span className="choose">*(선택)</span>
                 </div>
-                <input type="text" id="text" name="text" />
+                <textarea rows="10" id="text_img" name="text_img" onKeyUp={textCheck_img}></textarea>
                 <br /><br />
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox" onClick={blobToDataUrl_axios}>
                     전송</button>
@@ -240,7 +251,7 @@ function Done(){
                     다른 파일 전송</button>
             </div>
 
-            <textarea rows="10" id="text_camera" name="text" onKeyUp={textCheck_cam}></textarea>
+            <textarea rows="10" id="text_cam" name="text_cam" onKeyUp={textCheck_cam}></textarea>
             <br />
             <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios_cam}>
                 등록</button>
