@@ -3,6 +3,7 @@ import {useState, useEffect, useRef} from "react";
 import axios from 'axios';//axios 사용하기 위함
 import {useParams} from "react-router";//url 변수 저장 위함
 
+
 function Done(){
     const {id, flag} = useParams();//id라는 url 변수를 저장
     const google=window.google;//react에서 google 사용하기 위함
@@ -150,8 +151,8 @@ function Done(){
             if (dataUrl){
                 console.log(text.value);
                 console.log(dataUrl);
-                
-                axios.post(`https://admin.goodde.kr/call/message/${id}/imgsubmit`, {//정보 전달할 페이지
+                var url = process.env.SEND_URL+`/call/message/${id}/imgsubmit`
+                axios.post(url, {//정보 전달할 페이지
                     text:text.value,
                     dataUrl:dataUrl
                 })
@@ -174,7 +175,8 @@ function Done(){
     function text_axios(){//axios 써서 서버로 정보 보내기
         var text=document.getElementById('text');
         if (text){
-            axios.post(`https://admin.goodde.kr/call/message/${id}/textsubmit`, {//정보 전달할 페이지
+            var url = process.env.SEND_URL+`/call/message/${id}/textsubmit`
+            axios.post(url, {//정보 전달할 페이지
                 text:text.value,
             })
             .then((res)=>{//axios.post 성공하면
@@ -218,10 +220,10 @@ function Done(){
                 </div>
             <textarea rows="10" id="text" name="text" onKeyUp={textCheck}></textarea>
                 <br />
-                {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios}>
-                    등록</button> */}
-                <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
+                <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios}>
                     등록</button>
+                {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
+                    등록</button> */}
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
                     취소</button> 
 
@@ -251,10 +253,10 @@ function Done(){
 
             <textarea rows="10" id="text" name="text" onKeyUp={textCheck}></textarea>
             <br />
-            {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios}>
-                등록</button> */}
-            <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
-            등록</button> 
+            <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios}>
+                등록</button>
+            {/* <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
+            등록</button>  */}
             <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
                 취소</button>
         </div>
