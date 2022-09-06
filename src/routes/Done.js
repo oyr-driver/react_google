@@ -212,6 +212,7 @@ function Done(){
                 </div>
             <textarea rows="10" id="text_done" name="text" onKeyUp={textCheck_done}></textarea>
                 <br />
+
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={text_axios_done}>
                     등록</button>
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox camsend" onClick={change}>
