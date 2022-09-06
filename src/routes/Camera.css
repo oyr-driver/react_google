@@ -3,6 +3,7 @@
 .cam_group{font-size:60px; text-align:center; margin-top:300px;}/*전체적인 페이지*/
 .campic{width:150px; float:left; margin-top:40px; margin-left:70px;}/*카메라마크*/
 .takePic{margin-top:40px; color:#ae7ff3;}/*현재 상황을 사진으로 보낼까요?*/
+#text{border:solid 1px #495057; border-radius: 15px; width:800px; height:350px;}/*불편내용 적는 칸*/
 .buttonbox_cam{border:solid 1px #707070; border-radius: 25px; width:90%; height:500px; margin:auto; padding-top:50px;}/*아니요 네 버튼 모음*/
 .checkpic{margin:10px 30px; font-size:50px;border-radius: 25px; width:200px;}/*아니요 네 버튼*/
 .cambutton{margin:30px; padding-right:40px; padding-top:20px;}/*아니요 네 버튼 그룹*/
