@@ -1,10 +1,50 @@
 /*index.html에 모든 css파일 적용되므로 다른 파일에 동일하게 적혀있다면 지워도 됨(이름 바꿔서 중복 방지하기)*/
-.c_group{text-decoration: center; margin-top:15%;} /*전체적인 페이지*/
+/* .c_group{text-decoration: center; margin-top:15%;} 전체적인 페이지 */
+/* .home{font-family: 'Do Hyeon', sans-serif; font-size:90px; padding-top:25px;}
+.line{border:solid 1px #707070;}
+.buttonbox{border:solid 1px #707070; border-radius: 25px; width:75%; height:350px; margin:auto; padding:0px; box-shadow:5px 10px 40px 10px #a0a0a0;} */
+/*취약계층, 재난위험 버튼 모음*/
+/*box-shadow 30px은 그림자 흐림, 크기가 10px인 그림자 생성*/
+/* .c_button{float:left; margin:50px; font-size:60px;} */
+/*취약계층, 재난위험 글자*/
+/* .c_pin{width:200px; margin:30px; margin-top: 80px; float:right;}
+.c_cam{width:200px; margin:10px; float:right; margin-right:40px; margin-top:100px;} */
+
+.c_group{text-decoration: center; margin-top:0;} /*전체적인 페이지*/
 .home{font-family: 'Do Hyeon', sans-serif; font-size:90px; padding-top:25px;}
 .line{border:solid 1px #707070;}
-.buttonbox{border:solid 1px #707070; border-radius: 25px; width:75%; height:350px; margin:auto; padding:0px; 
+.buttonbox{
+    border:solid 1px #707070; 
+    border-radius: 25px; 
+    width:40%; 
+    height:350px; 
+    margin: 0 25px; 
+    padding:0px; 
     box-shadow:5px 10px 40px 10px #a0a0a0;}/*취약계층, 재난위험 버튼 모음*/
 /*box-shadow 30px은 그림자 흐림, 크기가 10px인 그림자 생성*/
-.c_button{float:left; margin:50px; font-size:60px;}/*취약계층, 재난위험 글자*/
-.c_pin{width:200px; margin:30px; margin-top: 80px; float:right;}
-.c_cam{width:200px; margin:10px; float:right; margin-right:40px; margin-top:100px;}
+.c_button{
+    float:left; 
+    margin:40px 50px 0 50px; 
+    font-size:57px;
+}/*취약계층, 재난위험 글자*/
+.c_pin{width:100px; margin:30px; margin-top: 0px; float:right;}
+.c_cam{width:100px; margin:10px; float:right; margin-right:40px; margin-top:0;}
+
+.c_group_row{
+    position: relative;
+    display: flex;
+    align-items: center;/*세로 가운데 정렬*/
+    justify-content: center;/*가로 가운데 정렬*/
+    margin-bottom: 50px;
+}
+.c_group_sub{
+    width: 600px;
+}
+
+.c_mon{
+    width:120px; 
+    margin:10px; 
+    float:right; 
+    margin-right:40px; 
+    margin-top:0;
+}
