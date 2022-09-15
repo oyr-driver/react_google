@@ -164,7 +164,7 @@ function Home(){
             <br /><br />
             <div className="boxgroup">
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox write" onClick={Search}>
-                    작성할게요</button>
+                    주소직접입력</button>
                 <button className="mb-2 mr-2 btn-transition btn btn-outline-secondary checkbox ok" onClick={Done}>
                     네, 맞습니다</button>
             </div>

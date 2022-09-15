@@ -4,4 +4,4 @@
 #d_googleMap{width:90%; height:650px; margin:20px auto;}
 .write{font-size:50px; color:#707070; margin-top:-20px; margin-bottom:30px;}/*불편내용 적어주세요*/
 .choose{font-size:40px; color:#4268F6;}/*선택*/
-#text_img, #text_done, #text_cam{border:solid 1px #495057; border-radius: 15px; width:800px; height:350px;}/*불편내용 적는 칸*/
+#text_img, #text_done, #text_cam{border:solid 1px #495057; border-radius: 15px; width:800px; height:350px; padding:20px;}/*불편내용 적는 칸*/
